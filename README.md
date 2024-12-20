@@ -11,8 +11,8 @@
 
 ### 🏗️ Advanced Architecture
 - Self-attention mechanisms for capturing long-range dependencies
-- Conditional GAN support for demographic features
-- Flexible network architecture with configurable hidden layers
+- Conditional GAN support for demographic or other features (WIP)
+- Flexible network architecture with configurable hidden layers, other architectural elements
 - Multiple loss function options (WGAN, LSGAN, GAN)
 
 ### 🚂 Robust Training Pipeline
