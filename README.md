@@ -1,6 +1,6 @@
 # 🧠 brainGAN
 
-> A PyTorch-based GAN framework for bidirectional generation between neuroimaging data (fMRI, DTI) and behavioral measures, with a focus on robust training and reproducibility.
+> A PyTorch-based GAN framework for bidirectional generation between neuroimaging data (fMRI, DTI) and behavioral measures, with a focus on stable training and reproducibility.
 
 ## ✨ Key Features
 
@@ -17,8 +17,8 @@
 
 ### 🚂 Robust Training Pipeline
 - Nested cross-validation with Optuna hyperparameter optimization
-- Smart learning rate scheduling with warmup periods
-- Early stopping with customizable patience
+- Smart learning rate scheduling with warmup and plateau periods
+- Early stopping with customizable patience, min epochs, min change
 - Gradient penalty and clipping for stability
 - Multi-GPU support with parallel fold processing
 
@@ -80,23 +80,16 @@ python gan_train.py
 ##### Base Architecture
 - 🏗️ **Generator & Discriminator Foundation**
   - Shared `BaseGANModule` with configurable dimensions
-  - Smart normalization selection (batch/layer)
+  - Normalization selection (batch/layer)
   - Dropout regularization (configurable rate)
+  - Depth, dropout, latent space, and other configurable parameters
 
-##### Attention Mechanism
+##### Attention Mechanism for Interactions
 - 🔍 **Multi-Head Self-Attention**
   - 4-head scaled dot-product attention
   - Learnable attention strength (γ parameter)
   - Strategic placement at network intervals
   - Dimension-scaled transformations (d⁻⁰·⁵)
-
-##### Conditional Generation
-- 🔄 **Input Processing**
-  ```
-  [noise_vector | condition_vector | demographics]
-  ```
-- Flexible conditioning strategies
-- Modality-matched output dimensions
 
 #### 2️⃣ Training Pipeline (`training_utils.py`)
 
@@ -112,9 +105,8 @@ python gan_train.py
 ##### Learning Rate Control
 - 📈 **Advanced Scheduling**
   - Warmup → Plateau reduction
-  - Attention-specific optimization
-  - Reduction factor: 0.5
-  - Plateau patience: 10 epochs
+  - Independent attention warmup
+  - Independent discriminator/generator warmup
 
 ##### Stability Measures
 - 🔒 **Training Safeguards**
@@ -137,28 +129,23 @@ python gan_train.py
 - 📈 **Analysis Pipeline**
   - Cross-validation aggregation
   - KS statistical testing
-  - Modality-specific evaluations
+  - Modality-specific evaluations (e.g., rois vs voxelwise)
 
 ### 🔍 Data Processing
 
 #### 1️⃣ Data Integration
 - 📥 **Input Processing**
   - Structured MAT parsing
-  - Automated normalization
-  - Modality-based feature extraction
+  - Automated normalization with robust and normal normalization methods
+  - Noramlization *inside* inner folds to ensure no leakage
+  - Automatic downsampling of images based on header
+  - Automatic masking to remove empty voxels across most individuals
+  - Outputs for facilitating reconstruction
+  - Modality-based feature extraction from our lab's file convention system (see ARC on openneuro for examples)
 
 #### 2️⃣ Reproducibility
 - 🎲 **Randomization Control**
-  - Global seed management
-  - Framework-wide determinism
-  - Consistent cross-validation
-
-#### 3️⃣ Data Exploration
-- 🔬 **Analysis Tools**
-  - Recursive structure analysis
-  - Distribution statistics
-  - Automated error detection
-  - Content validation
+  - Global seed management for framework-wide determinism
 
 ## 📫 Contact
 alex.teghipco@uci.edu
