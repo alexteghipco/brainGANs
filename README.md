@@ -21,6 +21,7 @@
 - Early stopping with customizable patience, min epochs, min change
 - Gradient penalty and clipping for stability
 - Multi-GPU support with parallel fold processing
+- Data caching, automatic checkpointing
 
 ## 🛠️ Quick Start
 
