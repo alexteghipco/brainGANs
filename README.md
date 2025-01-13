@@ -42,24 +42,24 @@ python gan_train.py
 ├── 🎯 Core Files
 │   ├── gan_settings.py     # Global settings and hyperparameters (start here!)
 │   ├── gan_train.py        # Main training script with nested CV
-│   ├── gan_eval.py         # Model evaluation and result generation
-│   ├── gan_arch.py         # Dynamic GAN architecture definitions
+│   ├── gan_arch.py         # GAN architecture definitions used by gan_train.py
+│   ├── gan_eval.py         # Standalone evaluation script (not used during training)
 │   └── gan_trainer.py      # Training orchestration and management
 │
 ├── 🧮 Data Processing
 │   ├── data_utils.py       # Data loading and preprocessing
-│   ├── process_utils.py    # General processing utilities
+│   ├── process_utils.py    # GPU/device management and process orchestration
 │   └── concat_mat_beh.py   # MAT and behavioral data handling
 │
 ├── 🔧 Training Support
-│   ├── training_utils.py   # Early stopping, LR scheduling, losses
-│   ├── model_utils.py      # Model-related utilities
-│   ├── metrics.py          # Performance metrics and calculations
+│   ├── training_utils.py   # Early stopping, LR scheduling
+│   ├── model_utils.py      # Model initialization, checkpointing, and validation
+│   ├── metrics.py          # Loss functions used by gan_trainer.py
 │   ├── visualization.py    # Plotting and visualization tools
 │   └── seed_manager.py     # Random seed management
 │
 ├── 🎛️ Hyperparameter Optimization
-│   ├── hyperparameter_optimization.py  # Optuna-based optimization
+│   ├── hyperparameter_optimization.py  # Optuna optimization used by gan_train.py
 │   └── test_hyperparameter_optimization.py  # Optimization tests
 │
 ├── 🧪 Testing
